@@ -12,7 +12,7 @@ module.exports = {
         originsWhitelist: [
             'http://localhost:4200',      //My local front-end url for development.
             'http://192.168.1.104:4200',  //Second CPU front-end url for development also.
-            'http://www.myproductionurl.com' //My production front-end url.
+            'https://thewindlogger.web.app/' //My production front-end url.
         ],
         credentials: true
     },
@@ -26,7 +26,7 @@ module.exports = {
         debug: process.env.MONGODB_DEBUG || false
     },
     //host: process.env.HOST || '0.0.0.0',
-    host: process.env.HOST || '192.168.1.104',
+    host: process.env.HOST || 'thewindloggerserver.herokuapp.com',
     port: process.env.PORT || 3000,
     secure: {
         ssl: true,
@@ -56,6 +56,7 @@ module.exports = {
         user: 'trialhambranoreply@gmail.com',
         pass: 'trialhambra12A.g',
         subject: 'Correo de recuperación de cuenta theWindLogger',
-        recoveryUrl: 'http://192.168.1.104:4200/recover/'
+        //recoveryUrl: 'http://192.168.1.104:4200/recover/'
+        recoveryUrl: 'https://thewindlogger.web.app:4200/recover/'
     }
 };
