@@ -48,16 +48,15 @@ module.exports = {
     },
     sessionKey: 'sessionId',
     sessionSecret: process.env.SESSION_SECRET || 'anystringhereisvalidtoencript',
-    sessionJsonWebTokenExpires: '10h',
     recoveryMail: {
         service: 'gmail',
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         user: 'trialhambranoreply@gmail.com',
-        pass: 'trialhambra12A.g',
+        pass: 'windy12A.',
         subject: 'Correo de recuperación de cuenta theWindLogger',
-        //recoveryUrl: 'http://192.168.1.104:4200/recover/'
-        recoveryUrl: 'https://thewindlogger.web.app:4200/recover/'
+        recoveryUrl: 'http://0.0.0.0:4200/recover/'
+        //recoveryUrl: 'https://thewindlogger.web.app:4200/recover/'
     }
 };

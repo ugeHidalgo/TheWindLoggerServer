@@ -35,10 +35,10 @@ var url = require ('url'),
 module.exports.init = function (app) {
 
     // Send a password recovery mail to the user.
-    // (POST)http:localhost:3000/api/user/userrecover body: {username: 'a name', eMail:'pop@pop.es'}
-    app.post('/api/user/userrecover', function(request, response, next){
+    // (POST)http:localhost:3000/api/users/userrecover body: {username: 'a name', eMail:'pop@pop.es'}
+    app.post('/api/users/userrecover', function(request, response, next){
 
-        var userToRecover =  request.body.username,
+        var userToRecover =  request.body.userName,
             mailToRecover = request.body.eMail,
             userPass = '';
 
@@ -59,8 +59,8 @@ module.exports.init = function (app) {
     });
 
     // Updates an user password.
-    // (POST)http:localhost:3000/api/username body: {hashedPassword: '...', newPassword: '...'}
-    app.post('/api/user/:username', function(request, response, next){
+    // (POST)http:localhost:3000/api/users/username body: {hashedPassword: '...', newPassword: '...'}
+    app.post('/api/users/:username', function(request, response, next){
 
         var username = request.params.username,
             hashedPassword = request.body.hashedPassword,
