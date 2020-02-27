@@ -25,8 +25,9 @@ module.exports = {
         // Enable mongoose debug mode
         debug: process.env.MONGODB_DEBUG || false
     },
-    //host: process.env.HOST || '0.0.0.0',
-    host: process.env.HOST || 'thewindloggerserver.herokuapp.com',
+    host: process.env.HOST || '0.0.0.0',
+    //host: process.env.HOST || 'thewindloggerserver.herokuapp.com',
+    //host: process.env.HOST || 'localhost',
     port: process.env.PORT || 3000,
     secure: {
         ssl: true,
