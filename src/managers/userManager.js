@@ -77,9 +77,9 @@ module.exports.updateUserPassword = function (userName, hashedPassword, password
  */
 function createNewUser (user, callbackFn){
 
-    User.find({username: user.username},(error, data) => {
+    User.find({userName: user.userName},(error, data) => {
         if (data.length > 0) {
-            callbackFn('User ' + user.username + ' already exists.', user);
+            callbackFn('User ' + user.userName + ' already exists.', user);
         } else {
             var newUser = new User(user),
             salt = hasher.createSalt();
@@ -91,7 +91,7 @@ function createNewUser (user, callbackFn){
                 if (error) {
                     callbackFn(error, null);
                 } else {
-                    console.log ('New user saved with username ' + newUser.username + ' and id: ' + newUser._id);
+                    console.log ('New user saved with username ' + newUser.userName + ' and id: ' + newUser._id);
                     callbackFn(null, newUser);
                 }
             });

@@ -131,7 +131,7 @@ module.exports.init = function (app) {
                     res.status(201).send(loginResult);
                 }
                 else {
-                    res.status(401).error(loginResult.message) //send(loginResult.message);
+                    res.status(401).send(loginResult.message) //send(loginResult.message);
                 }
              }
         });
