@@ -12,7 +12,7 @@ module.exports = {
         originsWhitelist: [
             'http://localhost:4200',      //My local front-end url for development.
             'http://192.168.1.104:4200',  //Second CPU front-end url for development also.
-            'https://thewindlogger.web.app/' //My production front-end url.
+            'https://thewindlogger.web.app' //My production front-end url.
         ],
         credentials: true
     },

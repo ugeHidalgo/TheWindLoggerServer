@@ -29,7 +29,7 @@ module.exports.getUserByExactUserName = function (userName, callbackFn) {
 module.exports.getUserByUserName = function (userName, callbackFn) {
 
     var regexString = `/${userName}/`;
-    User.find({username: new RegExp(userName, 'i')}, callbackFn);
+    User.find({userName: new RegExp(userName, 'i')}, callbackFn);
 };
 
 module.exports.updateUser = function (user, callbackFn) {
@@ -41,7 +41,7 @@ module.exports.updateUser = function (user, callbackFn) {
     }
 };
 
-module.exports.updateUserPassword = function (username, hashedPassword, password, callbackFn) {
+module.exports.updateUserPassword = function (userName, hashedPassword, password, callbackFn) {
 
     var salt = hasher.createSalt(),
         updatedValues = {
@@ -52,7 +52,7 @@ module.exports.updateUserPassword = function (username, hashedPassword, password
 
     User.findOneAndUpdate(
     {
-        username: username,
+        userName: userName,
         password: hashedPassword
     },
     { $set: updatedValues },
@@ -61,10 +61,10 @@ module.exports.updateUserPassword = function (username, hashedPassword, password
             callbackFn(error, false);
         } else {
             if (updatedUser) {
-                console.log ('Password updated for username ' + username);
+                console.log ('Password updated for username ' + userName);
                 callbackFn(null, true)
             } else {
-                console.log ('Password was not updated for username ' + username + ' because hashed password is not valid.');
+                console.log ('Password was not updated for username ' + userName + ' because hashed password is not valid.');
                 callbackFn(null, false)
             }
         }
