@@ -15,7 +15,7 @@ Other used:
 - gulp-jshintnpm install
 - nodemon
 - underscore
-ifconfig
+
 ___
 
 
@@ -67,7 +67,7 @@ ___
 
 -5 Remote Data base can also be used hosted in mLab (Need to change local db config to remote. See dbConfig.js to change it)
 
-
+-6 Hosted on Heroku via Git(Automatic deploys set on Heroku when changing git repository): https://thewindloggerserver.herokuapp.com
 
 ## Backup and restore
 
