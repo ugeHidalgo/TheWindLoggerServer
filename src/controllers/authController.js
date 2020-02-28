@@ -118,7 +118,7 @@ module.exports.init = function (app) {
 
     // Verify if an user can access
     // (POST)http:localhost:3000/api/auth body: {username: 'a user name', password:'a password'}
-    app.post('/api/users/auth', function(req, res, next){
+    app.post('/api/users/auth/login', function(req, res, next){
 
         var userData =  req.body;
 

@@ -48,6 +48,7 @@ module.exports = {
     },
     sessionKey: 'sessionId',
     sessionSecret: process.env.SESSION_SECRET || 'anystringhereisvalidtoencript',
+    sessionJsonWebTokenExpires: '10h',
     recoveryMail: {
         service: 'gmail',
         host: 'smtp.gmail.com',
