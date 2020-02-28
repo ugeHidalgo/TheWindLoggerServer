@@ -86,5 +86,31 @@ module.exports.init = function (app) {
         }
     });
 
+    app.post ('/api/users', auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/user/update    User in payload 
+        var queryString = url.parse(req.url, true).query,
+            userName = queryString.username,
+            msg;
+        
+        if (username) {
+            userManager.updateUser ( userName, function(error, users){
+                if (error){
+                    console.log('User controller returns an error (400)');
+                    res.status(400).send(error);
+                } else {
+                    res.set('Content-Type','application/json');
+                    if (users.length === 0 ) {
+                        msg = `No users found with user name: ${userName}`;
+                        console.log(msg);
+                        res.status(200).send([msg]);
+                    } else {
+                        console.log(`User controller returns user ${userName} successfully.`);
+                        res.status(200).send(users[0]);
+                    }
+                }
+            });
+        }        
+    });
+
     console.log('User controller initialized');
 };
