@@ -12,7 +12,7 @@ var url = require ('url'),
  * Public methods.
  */
 module.exports.init = function (app) {
-    app.get ('/api/user/:username', auth.isUserAuthenticated, function (req, res, next) {
+    app.get ('/api/users/:username', auth.isUserAuthenticated, function (req, res, next) {
         // (GET)http:localhost:3000/api/user/ugeHidalgo
         var id = req.params.id,
             msg;
@@ -35,7 +35,7 @@ module.exports.init = function (app) {
         });
     });
 
-    app.get ('/api/user', auth.isUserAuthenticated, function (req, res, next) {
+    app.get ('/api/users', auth.isUserAuthenticated, function (req, res, next) {
         // By name: (GET)http:localhost:3000/api/user/?username=ugeHidalgo
         // By Id: (GET)http:localhost:3000/api/user/?id=5a78a8fe458a4c457a3b4969
         var queryString = url.parse(req.url, true).query,
