@@ -11,11 +11,8 @@ var moongoose = require ('mongoose'),
         eMail: String,
         active : { type : Boolean, default : true },
         admin : { type : Boolean, default : false },
-        birthDate: Date,
         created : { type : Date, default : Date.now },
-        updated : { type : Date, default : Date.now },
-        phone: String,
-        mobile: String
+        updated : { type : Date, default : Date.now }
     });
 
 module.exports = moongoose.model ('Users', UserSchema);
