@@ -37,12 +37,16 @@ module.exports.initMiddleware = function (app) {
     //Cross Origin Resource Sharing
     var corsOptions = {
         origin: function(origin, callback){
-                var isWhitelisted = config.cors.originsWhitelist.indexOf(origin) !== -1;
-                callback(null, isWhitelisted);
+                if (config.cors.originsWhitelist.indexOf(origin) !== -1 || !origin) {
+                    callback(null, true);
+                } else {
+                    callback(new Error('Not allowed by CORS'));
+                }
         },
         credentials: config.cors.credentials
     }
     app.use(cors(corsOptions));
+    app.options('*', cors());
     
     // Add the cookie parser and flash middleware
     app.use(cookieParser());
