@@ -43,7 +43,6 @@ module.exports.initMiddleware = function (app) {
         credentials: config.cors.credentials
     }
     app.use(cors(corsOptions));
-    app.options('*', cors());
     
     // Add the cookie parser and flash middleware
     app.use(cookieParser());
