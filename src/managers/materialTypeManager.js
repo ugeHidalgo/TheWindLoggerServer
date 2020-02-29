@@ -11,6 +11,16 @@ var mongoose = require ('mongoose'),
 /**
  * Public methods.
  */
+module.exports.getMaterialTypes = function (userName, callbackFn) {
+
+    MaterialType.find({userName: userName}, callbackFn);
+};
+
+module.exports.getActiveMaterialTypes = function (userName, callbackFn) {
+
+    MaterialType.find({userName: userName, active: true}, callbackFn);
+};
+
 module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn) {
 
     MaterialType.insertMany(materialTypesToCreate, callbackFn);
