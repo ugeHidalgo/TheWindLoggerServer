@@ -14,7 +14,7 @@ var url = require ('url'),
 module.exports.init = function (app) {
     app.post ('/api/materialtypes', auth.isUserAuthenticated, function (req, res, next) {
         // By name: (POST)http:localhost:3000/api/materialtypes   materialtypes in payload 
-        var materialTypesToCreate =  request.body;
+        var materialTypesToCreate =  req.body;
         
         materialTypeManager.createMaterialTypes ( materialTypesToCreate, function(error, materialTypes){
             if (error){
