@@ -6,11 +6,13 @@
  */
 var homeController = require ('./homeController'),
     authController = require ('./authController'),
-    userController = require ('./userController');
+    userController = require ('./userController'),
+    materialTypeController = require ('./materialTypeController');
 
 module.exports.init = function (app){
     console.log('Main controller initialized');
     homeController.init(app);
     authController.init(app);
     userController.init(app);
+    materialTypeController.init(app);
 };
