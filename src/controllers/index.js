@@ -7,7 +7,9 @@
 var homeController = require ('./homeController'),
     authController = require ('./authController'),
     userController = require ('./userController'),
-    materialTypeController = require ('./materialTypeController');
+    materialTypeController = require ('./materialTypeController'),
+    spotController = require ('./spotController'),
+    sportController = require ('./sportController');
 
 module.exports.init = function (app){
     console.log('Main controller initialized');
@@ -15,4 +17,6 @@ module.exports.init = function (app){
     authController.init(app);
     userController.init(app);
     materialTypeController.init(app);
+    spotController.init(app);
+    sportController.init(app);
 };
