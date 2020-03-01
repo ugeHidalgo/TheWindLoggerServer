@@ -43,9 +43,10 @@ module.exports.initMiddleware = function (app) {
                     callback(new Error('Not allowed by CORS'));
                 }
         },
-        credentials: config.cors.credentials
+        credentials: config.cors.credentials,
+        preflightContinue: config.cors.credentials
     }
-    app.use(cors(corsOptions));
+    
     app.options('*', cors());
     app.all('/*', function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -53,6 +54,7 @@ module.exports.initMiddleware = function (app) {
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
     });
+    app.use(cors(corsOptions));
 
     // Add the cookie parser and flash middleware
     app.use(cookieParser());
