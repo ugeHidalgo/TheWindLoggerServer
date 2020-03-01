@@ -1,7 +1,7 @@
 var moongoose = require ('mongoose'),
     Schema = moongoose.Schema,
     UserSchema = new Schema ({
-        id : Number,
+        _id : Schema.Types.ObjectId,
         userName: String,
         company: String,
         password: String,

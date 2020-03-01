@@ -1,11 +1,11 @@
 var moongoose = require ('mongoose'),
     Schema = moongoose.Schema,
     MaterialTypeSchema = new Schema ({
-        id : Number,
+        _id : Schema.Types.ObjectId,
         userName: String,
         name: String,
         description: String,
-        sport: String,
+        sport: { type: Schema.Types.ObjectId, ref: 'Sports' },
         active : { type : Boolean, default : true },
         created : { type : Date, default : Date.now },
         updated : { type : Date, default : Date.now }

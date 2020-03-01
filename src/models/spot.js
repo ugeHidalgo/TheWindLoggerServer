@@ -1,7 +1,7 @@
 var moongoose = require ('mongoose'),
     Schema = moongoose.Schema,
     SpotSchema = new Schema ({
-        id : Number,
+        _id : Schema.Types.ObjectId,
         userName: String,
         name: String,
         description: String,

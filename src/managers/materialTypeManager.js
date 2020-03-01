@@ -13,7 +13,7 @@ var mongoose = require ('mongoose'),
  */
 module.exports.getMaterialTypes = function (userName, callbackFn) {
 
-    MaterialType.find({userName: userName}, callbackFn);
+    MaterialType.find({userName: userName}, callbackFn).populate('sport');
 };
 
 module.exports.getActiveMaterialTypes = function (userName, callbackFn) {
