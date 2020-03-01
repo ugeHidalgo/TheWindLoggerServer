@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
-    spotManager = require('../managers/SpotManager'),
+    spotManager = require('../managers/spotManager'),
     auth = require ('../auth/authMiddleware');
 
 /**
