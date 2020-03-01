@@ -47,13 +47,13 @@ module.exports.initMiddleware = function (app) {
         preflightContinue: config.cors.credentials
     }
     
-    app.options('*', cors());
+    /* app.options('*', cors());
     app.all('/*', function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
-    });
+    }); */
     app.use(cors(corsOptions));
 
     // Add the cookie parser and flash middleware
