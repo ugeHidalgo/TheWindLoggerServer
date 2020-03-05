@@ -9,6 +9,7 @@ var homeController = require ('./homeController'),
     userController = require ('./userController'),
     materialTypeController = require ('./materialTypeController'),
     spotController = require ('./spotController'),
+    sportTypeController = require ('./sportTypeController'),
     sportController = require ('./sportController');
 
 module.exports.init = function (app){
@@ -20,4 +21,5 @@ module.exports.init = function (app){
     materialTypeController.init(app);
     spotController.init(app);
     sportController.init(app);
+    sportTypeController.init(app);
 };

@@ -7,8 +7,7 @@
 var chalk = require('chalk'),
     lodash = require('lodash'),
     config = require('../config/config'),
-    mongoose = require ('mongoose'),
-    seedTools = require ('./data/seedTools');
+    mongoose = require ('mongoose');
     
 
 module.exports.connect = function init(callback) {
@@ -19,9 +18,6 @@ module.exports.connect = function init(callback) {
     .then(function (connection) {
       // Enabling mongoose debug mode if required
       mongoose.set('debug', config.db.debug);
-
-      //Seed sample data used on development mode.
-      seedTools.seedSampleData();
 
       // Call callback FN
       if (callback) callback(connection.db);
