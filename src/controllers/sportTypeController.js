@@ -28,7 +28,7 @@ module.exports.init = function (app) {
         });
     });
 
-    app.get ('/api/sportypes', auth.isUserAuthenticated, function (req, res, next) {
+    app.get ('/api/sporttypes', auth.isUserAuthenticated, function (req, res, next) {
         // By name: (GET)http:localhost:3000/api/sporttypes/?username=pepe&active=true 
         var queryString = url.parse(req.url, true).query,
             userName = queryString.username,
