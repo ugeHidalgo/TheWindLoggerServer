@@ -20,7 +20,7 @@ module.exports.getMaterialTypes = function (userName, callbackFn) {
 
 module.exports.getActiveMaterialTypes = function (userName, callbackFn) {
 
-    MaterialType.find({userName: userName, active: true}, callbackFn);
+    MaterialType.find({userName: userName, active: true}, callbackFn).populate('sport');;
 };
 
 module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn) {

@@ -4,8 +4,8 @@
 /**
  * Module dependencies.
  */
-var mongoose = require ('mongoose'),
-    hasher = require ('../auth/hasher'),
+var async = require ('async'),
+    SportType = require ('../models/sportType'),
     Sport = require ('../models/sport');
 
 /**
@@ -13,15 +13,31 @@ var mongoose = require ('mongoose'),
  */
 module.exports.getSports = function (userName, callbackFn) {
 
-    Sport.find({userName: userName}, callbackFn);
+    Sport.find({userName: userName}, callbackFn).populate('sportType');;
 };
 
 module.exports.getActiveSports = function (userName, callbackFn) {
 
-    Sport.find({userName: userName, active: true}, callbackFn);
+    Sport.find({userName: userName, active: true}, callbackFn).populate('sportType');;
 };
 
 module.exports.createSports = function (sportsToCreate, callbackFn) {
 
-    Sport.insertMany(sportsToCreate, callbackFn);
+    var loadSportTypeObjectOnSportTypeField = function(sportToCreate, callbackFn) {
+        var sportTypeName = sportToCreate.sportType;
+        
+        SportType.find({userName: sportToCreate.userName, name: sportTypeName}, function(err, sportType){
+            if (sportType) {
+                sportToCreate.sportType = sportType[0]._doc;
+            } else {
+                sportToCreate.sport = sportTypeName;
+            } 
+            callbackFn();
+        });
+    };
+
+    async.each(sportsToCreate, loadSportTypeObjectOnSportTypeField, function() {
+        console.log ('Added sport type data for ' + sportsToCreate.length + ' sports.');
+        Sport.insertMany(sportsToCreate, callbackFn);
+    });
 };
