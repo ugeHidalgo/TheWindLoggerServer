@@ -35,39 +35,37 @@ ___
 
 -2 Install:
 
-    - Install mongodb downloading from http://www.mongodb.org if you one to use it locally
-        Set path for databases with mongod --dbpath path
+    Install mongodb downloading from http://www.mongodb.org if you one to use it locally
+    Set path for databases with mongod --dbpath path
 
-    - Install dependecies needed:
-    ```
+    Install dependecies needed:
+    
         cd TheWindLoggerServer
-        cd server
         npm install
-    ```
 
 -3 Run:
     Launch mongoDB in a console:
-    ```
+    
         mongod
-    </code>
-    Launch server side with any of these options:
-    ```
+    
+-4 Launch server side with any of these options:
+
         - npm start
         - gulp
         - gulp default
         - gulp develop
-    ```
-    Access site to http://localhost:3000
+        
+-5 Access site to http://localhost:3000
 
--4 Debug server side with the debugger in visual studio code or with node inspector:
-    ```
+-6 Debug server side with the debugger in visual studio code or with node inspector:
+ 
     node --inspect --debug .
     Copiar url y pegar en un browser.
-    ```
+ 
 
--5 Remote Data base can also be used hosted in mLab (Need to change local db config to remote. See dbConfig.js to change it)
+-7 Remote Data base can also be used hosted in mLab (Need to change local db config to remote. See dbConfig.js to change it)
 
--6 Hosted on Heroku via Git(Automatic deploys set on Heroku when changing git repository): https://thewindloggerserver.herokuapp.com
+-8 Hosted on Heroku via Git(Automatic deploys set on Heroku when changing git repository): https://thewindloggerserver.herokuapp.com
 
 ## Backup and restore
 
