@@ -27,7 +27,7 @@ module.exports.createMaterials = function (materialsToCreate, callbackFn) {
         var materialTypeName = materialToCreate.materialType;
         
         MaterialType.find({userName: materialToCreate.userName, name: materialTypeName}, function(err, materialType){
-            if (materialType) {
+            if (materialType && materialType.length>0) {
                 materialToCreate.materialType = materialType[0]._doc;
             } else {
                 materialToCreate.materialType = materialTypeName;

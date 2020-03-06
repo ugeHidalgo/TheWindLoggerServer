@@ -29,7 +29,7 @@ module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn
         var sportName = materialTypeToCreate.sport;
         
         Sport.find({userName: materialTypeToCreate.userName, name: sportName}, function(err, sport){
-            if (sport) {
+            if (sport && sport.length>0) {
                 materialTypeToCreate.sport = sport[0]._doc;
             } else {
                 materialTypeToCreate.sport = sportName;

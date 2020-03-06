@@ -27,7 +27,7 @@ module.exports.createSports = function (sportsToCreate, callbackFn) {
         var sportTypeName = sportToCreate.sportType;
         
         SportType.find({userName: sportToCreate.userName, name: sportTypeName}, function(err, sportType){
-            if (sportType) {
+            if (sportType && sportType.length>0) {
                 sportToCreate.sportType = sportType[0]._doc;
             } else {
                 sportToCreate.sport = sportTypeName;
