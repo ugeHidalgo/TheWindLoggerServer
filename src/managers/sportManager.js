@@ -41,3 +41,11 @@ module.exports.createSports = function (sportsToCreate, callbackFn) {
         Sport.insertMany(sportsToCreate, callbackFn);
     });
 };
+
+module.exports.setVirtualFields = function (sports, callbackFn) {
+    var mapSportTypeNames = function(sport, callbackFn) {
+        sport.sportTypeName = sport.sportType.name;
+        callbackFn();
+    };
+    async.each(sports, mapSportTypeNames, callbackFn);
+};

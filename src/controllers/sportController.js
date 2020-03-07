@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'Sport controller returns an error (400).',
     sportManager = require('../managers/sportManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -18,7 +19,7 @@ module.exports.init = function (app) {
         
         sportManager.createSports ( sportsToCreate, function(error, sports){
             if (error){
-                console.log('Sport controller returns an error (400)');
+                console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -50,29 +51,37 @@ module.exports.init = function (app) {
  * Private methods.
  */
 function getUserSports(userName, res) {
+    var message;
 
     sportManager.getSports (userName, function(error, data){
         if (error){
-            console.log('Sport controller returns an error (400).');
+            console.log(errorMessage);
             res.status(400).send(error);
         } else {
-            console.log(`Sport controller returns ${data.length} sports for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            message = `Sports controller returns ${data.length} sports for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
     });
 }
 
 function getActiveUserSports(userName, res) {
+    var message;
 
     sportManager.getActiveSports (userName, function(error, data){
         if (error){
-            console.log('Sports controller returns an error (400)');
+            console.log(errorMessage);
             res.status(400).send(error);
         } else {
-            console.log(`Sports controller returns ${data.length} active sports for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            message = `Sports controller returns ${data.length} active sports for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
+    });
+}
+
+function returnData(data, res, message) {
+    sportManager.setVirtualFields(data, function(){
+        console.log(message);
+        res.set('Content-Type','application/json');
+        res.status(200).send(data);
     });
 }

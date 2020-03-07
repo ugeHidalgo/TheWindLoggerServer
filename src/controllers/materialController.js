@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'Material controller returns an error (400).',
     materialManager = require('../managers/materialManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -18,7 +19,7 @@ module.exports.init = function (app) {
         
         materialManager.createMaterials ( materialsToCreate, function(error, materials){
             if (error){
-                console.log('Material controller returns an error (400)');
+                console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -50,31 +51,38 @@ module.exports.init = function (app) {
  * Private methods.
  */
 function getUserMaterials(userName, res) {
+    var message;
 
     materialManager.getMaterials (userName, function(error, data){
         if (error){
-            console.log('Material controller returns an error (400).');
+            console.log(errorMessage);
             res.status(400).send(error);
         } else {
-            materialManager.setVirtualFields(data, function(){
-                console.log(`Material controller returns ${data.length} materials for user "${userName}" successfully.`);
-                res.set('Content-Type','application/json');
-                res.status(200).send(data);
-            });
+            message = `Material controller returns ${data.length} materials for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
     });
 }
 
 function getActiveUserMaterials(userName, res) {
+    var message;
 
     materialManager.getActiveMaterials (userName, function(error, data){
         if (error){
             console.log('Material controller returns an error (400)');
             res.status(400).send(error);
         } else {
-            console.log(`Material controller returns ${data.length} active materials for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            message = `Material controller returns ${data.length} active materials for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
     });
 }
+
+function returnData(data, res, message) {
+    materialManager.setVirtualFields(data, function(){
+        console.log(message);
+        res.set('Content-Type','application/json');
+        res.status(200).send(data);
+    });
+}
+

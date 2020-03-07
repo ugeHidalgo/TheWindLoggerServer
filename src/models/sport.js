@@ -6,6 +6,7 @@ var moongoose = require ('mongoose'),
         name: String,
         description: String,
         sportType: { type: Schema.Types.ObjectId, ref: 'SportTypes' },
+        sportTypeName: String,
         active : { type : Boolean, default : true },
         created : { type : Date, default : Date.now },
         updated : { type : Date, default : Date.now }
