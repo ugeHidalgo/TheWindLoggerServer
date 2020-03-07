@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'MaterialTypes controller returns an error (400).',
     materialTypeManager = require('../managers/materialTypeManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -18,7 +19,7 @@ module.exports.init = function (app) {
         
         materialTypeManager.createMaterialTypes ( materialTypesToCreate, function(error, materialTypes){
             if (error){
-                console.log('MaterialType controller returns an error (400)');
+                console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -50,29 +51,37 @@ module.exports.init = function (app) {
  * Private methods.
  */
 function getUserMaterialTypes(userName, res) {
+    var message;
 
     materialTypeManager.getMaterialTypes (userName, function(error, data){
         if (error){
-            console.log('MaterialTypes controller returns an error (400).');
+            console.log(errorMessage);
             res.status(400).send(error);
         } else {
-            console.log(`MaterialTypes controller returns ${data.length} MaterialTypes for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            message = `MaterialTypes controller returns ${data.length} MaterialTypes for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
     });
 }
 
 function getActiveUserMaterialTypes(userName, res) {
+    var message;
 
     materialTypeManager.getActiveMaterialTypes (userName, function(error, data){
         if (error){
-            console.log('MaterialTypes controller returns an error (400)');
+            console.log(errorMessage);
             res.status(400).send(error);
         } else {
-            console.log(`MaterialTypes controller returns ${data.length} active MaterialTypes for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            message = `MaterialTypes controller returns ${data.length} active MaterialTypes for user "${userName}" successfully.`;
+            returnData(data, res, message);
         }
+    });
+}
+
+function returnData(data, res, message) {
+    materialTypeManager.setVirtualFields(data, function(){
+        console.log(message);
+        res.set('Content-Type','application/json');
+        res.status(200).send(data);
     });
 }

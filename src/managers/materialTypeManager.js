@@ -43,3 +43,11 @@ module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn
         MaterialType.insertMany(materialTypesToCreate, callbackFn);
     });
 };
+
+module.exports.setVirtualFields = function (materialTypes, callbackFn) {
+    var mapSportNames = function(materialType, callbackFn) {
+        materialType.sportName = materialType.sport.name;
+        callbackFn();
+    };
+    async.each(materialTypes, mapSportNames, callbackFn);
+};
