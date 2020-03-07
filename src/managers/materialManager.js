@@ -41,3 +41,11 @@ module.exports.createMaterials = function (materialsToCreate, callbackFn) {
         Material.insertMany(materialsToCreate, callbackFn);
     });
 };
+
+module.exports.setVirtualFields = function (materials, callbackFn) {
+    var mapMaterialTypeNames = function(material, callbackFn) {
+        material.materialTypeName = material.materialType.name;
+        callbackFn();
+    };
+    async.each(materials, mapMaterialTypeNames, callbackFn);
+};

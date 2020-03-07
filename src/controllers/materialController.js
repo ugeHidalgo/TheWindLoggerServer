@@ -56,9 +56,11 @@ function getUserMaterials(userName, res) {
             console.log('Material controller returns an error (400).');
             res.status(400).send(error);
         } else {
-            console.log(`Material controller returns ${data.length} materials for user "${userName}" successfully.`);
-            res.set('Content-Type','application/json');
-            res.status(200).send(data);
+            materialManager.setVirtualFields(data, function(){
+                console.log(`Material controller returns ${data.length} materials for user "${userName}" successfully.`);
+                res.set('Content-Type','application/json');
+                res.status(200).send(data);
+            });
         }
     });
 }
