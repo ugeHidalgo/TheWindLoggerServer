@@ -13,12 +13,12 @@ var async = require ('async'),
  */
 module.exports.getSports = function (userName, callbackFn) {
 
-    Sport.find({userName: userName}, callbackFn).populate('sportType');;
+    Sport.find({userName: userName}, callbackFn).populate('sportType');
 };
 
 module.exports.getActiveSports = function (userName, callbackFn) {
 
-    Sport.find({userName: userName, active: true}, callbackFn).populate('sportType');;
+    Sport.find({userName: userName, active: true}, callbackFn).populate('sportType');
 };
 
 module.exports.createSports = function (sportsToCreate, callbackFn) {

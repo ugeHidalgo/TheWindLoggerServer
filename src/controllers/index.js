@@ -7,6 +7,7 @@
 var homeController = require ('./homeController'),
     authController = require ('./authController'),
     userController = require ('./userController'),
+    sessionController = require ('./sessionController'),
     materialTypeController = require ('./materialTypeController'),
     materialController = require ('./materialController'),
     spotController = require ('./spotController'),
@@ -19,6 +20,7 @@ module.exports.init = function (app){
     homeController.init(app);
     authController.init(app);
     userController.init(app);
+    sessionController.init(app);
     materialTypeController.init(app);
     materialController.init(app);
     spotController.init(app);
