@@ -18,13 +18,13 @@ module.exports.init = function (app) {
         // By name: (POST)http:localhost:3000/api/sessions   Sessions in payload 
         var sessionsToCreate =  req.body;
         
-        sessionManager.createSports ( sessionsToCreate, function(error, data){
+        sessionManager.createSessions ( sessionsToCreate, function(error, data){
             if (error){
                 console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
-                console.log(`Session controller created ${sports.length} sessions successfully.`);
+                console.log(`Session controller created ${data.length} sessions successfully.`);
                 res.status(200).send(data);
             }
         });
