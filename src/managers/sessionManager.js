@@ -63,16 +63,3 @@ module.exports.createSessions = function (sessionsToCreate, callbackFn) {
         Session.insertMany(sessionsToCreate, callbackFn);
     });
 };
-
-module.exports.setVirtualFields = function (sessions, callbackFn) {
-    var mapVirtualFields = function(session, callbackFn) {
-        if (session.sport) {
-            session.sportName = session.sport.name;
-        }
-        if (session.spot) {
-            session.spotName = session.spot.name;
-        }
-        callbackFn();
-    };
-    async.each(sessions, mapVirtualFields, callbackFn);
-};

@@ -9,9 +9,7 @@ var moongoose = require ('mongoose'),
         sessionTime: Number,
         sessionDistance: Number,
         sport: { type : Schema.Types.ObjectId, ref: 'Sports' },
-        sportName: String,        
         spot: { type : Schema.Types.ObjectId, ref: 'Spots' },
-        spotName: String,
         race: Boolean,
         indoor: Boolean,
         value: { type : Number, min: 1, max: 10 },
@@ -28,10 +26,20 @@ var moongoose = require ('mongoose'),
         return this.sessionDistance / (this.sessionTime / 3600);
     });
 
+    SesionSchema.virtual('sportName').get(function(){
+        return this.sport.name;
+    });
+
+    SesionSchema.virtual('spotName').get(function(){
+        return this.spot.name;
+    });
+
     SesionSchema.methods.toJSON = function () {
         var obj = this.toObject();
         obj.medSpeed = this.medSpeed;
+        obj.sportName = this.sportName;
+        obj.spotName = this.spotName;
         return obj;
      };
 
-module.exports = moongoose.model ('Sessions', SesionSchema);
+     module.exports = moongoose.model ('Sessions', SesionSchema);
