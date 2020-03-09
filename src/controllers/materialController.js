@@ -79,10 +79,8 @@ function getActiveUserMaterials(userName, res) {
 }
 
 function returnData(data, res, message) {
-    materialManager.setVirtualFields(data, function(){
-        console.log(message);
-        res.set('Content-Type','application/json');
-        res.status(200).send(data);
-    });
+    console.log(message);
+    res.set('Content-Type','application/json');
+    res.status(200).send(data);
 }
 

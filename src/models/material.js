@@ -6,7 +6,6 @@ var moongoose = require ('mongoose'),
         name: String,
         description: String,
         materialType: { type: Schema.Types.ObjectId, ref: 'MaterialTypes' },
-        materialTypeName: String,
         brand: String,
         model: String,
         year: String,
@@ -23,5 +22,15 @@ var moongoose = require ('mongoose'),
         created : { type : Date, default : Date.now },
         updated : { type : Date, default : Date.now }
     });
+
+    MaterialSchema.virtual('materialTypeName').get(function(){
+        return this.materialType.name;
+    });
+
+    MaterialSchema.methods.toJSON = function () {
+        var obj = this.toObject();
+        obj.materialTypeName = this.materialTypeName;
+        return obj;
+     };
 
 module.exports = moongoose.model ('Materials', MaterialSchema);
