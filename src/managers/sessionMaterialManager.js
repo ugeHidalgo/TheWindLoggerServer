@@ -14,7 +14,14 @@ var async = require ('async'),
  */
 module.exports.getSessionMaterials = function (userName, sessionId, callbackFn) {
 
-    SessionMaterial.find({userName: userName, 'session': sessionId}, callbackFn).populate('material');
+    SessionMaterial.find({userName: userName, 'session': sessionId}, callbackFn)
+                .populate([{
+                    path: 'material',
+                    populate: { 
+                         path:  'materialType', 
+                         model: 'MaterialTypes'
+                        }
+                  }]);
 };
 
 module.exports.createSessionMaterials = function (dataToCreate, callbackFn) {

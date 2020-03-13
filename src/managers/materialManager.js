@@ -18,7 +18,7 @@ module.exports.getMaterials = function (userName, callbackFn) {
 
 module.exports.getActiveMaterials = function (userName, callbackFn) {
 
-    Material.find({userName: userName, active: true}, callbackFn).populate('materialType');;
+    Material.find({userName: userName, active: true}, callbackFn).populate('materialType');
 };
 
 module.exports.createMaterials = function (materialsToCreate, callbackFn) {
