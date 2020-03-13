@@ -17,8 +17,18 @@ var moongoose = require ('mongoose'),
         return this.distance / (this.time / 3600);
     });
 
+    SesionMaterialSchema.virtual('materialName').get(function(){
+        return this.material.name;
+    });
+
+    SesionMaterialSchema.virtual('materialTypeName').get(function(){
+        return this.material.materialType.name;
+    });
+
     SesionMaterialSchema.methods.toJSON = function () {
         var obj = this.toObject();
+        obj.materialTypeName = this.materialTypeName;
+        obj.materialName = this.materialName;
         obj.medSpeed = this.medSpeed;
         return obj;
      };
