@@ -31,6 +31,7 @@ module.exports.createSports = function (sportsToCreate, callbackFn) {
                 sportToCreate.sportType = sportType[0]._doc;
             } else {
                 sportToCreate.sport = sportTypeName;
+                console.log(`Sport ${sportName} not found.`);
             } 
             callbackFn();
         });

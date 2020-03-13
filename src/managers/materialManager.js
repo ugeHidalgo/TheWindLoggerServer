@@ -31,6 +31,7 @@ module.exports.createMaterials = function (materialsToCreate, callbackFn) {
                 materialToCreate.materialType = materialType[0]._doc;
             } else {
                 materialToCreate.materialType = materialTypeName;
+                console.log(`Material type ${materialTypeName} not found.`);
             } 
             callbackFn();
         });

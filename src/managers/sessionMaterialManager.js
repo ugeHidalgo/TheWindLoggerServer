@@ -38,6 +38,7 @@ module.exports.createSessionMaterials = function (dataToCreate, callbackFn) {
                         dataToCreate.session = session[0]._doc;
                     } else {
                         dataToCreate.session = sessionName;
+                        console.log(`Session ${sessionName} not found.`);
                     } 
                     callbackFn();
                 });
@@ -48,6 +49,7 @@ module.exports.createSessionMaterials = function (dataToCreate, callbackFn) {
                         dataToCreate.material = material[0]._doc;
                     } else {
                         dataToCreate.material = materialName;
+                        console.log(`Material ${materialName} not found.`);
                     } 
                     callbackFn();
                 });

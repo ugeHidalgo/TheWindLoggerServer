@@ -33,6 +33,7 @@ module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn
                 materialTypeToCreate.sport = sport[0]._doc;
             } else {
                 materialTypeToCreate.sport = sportName;
+                console.log(`Sport ${sportName} not found.`);
             } 
             callbackFn();
         });

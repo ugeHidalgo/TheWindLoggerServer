@@ -36,6 +36,7 @@ module.exports.createSessions = function (sessionsToCreate, callbackFn) {
                         sessionToCreate.sport = sport[0]._doc;
                     } else {
                         sessionToCreate.sport = sportName;
+                        console.log(`Sport ${sportName} not found.`);
                     } 
                     callbackFn();
                 });
@@ -45,6 +46,7 @@ module.exports.createSessions = function (sessionsToCreate, callbackFn) {
                     if (spot && spot.length > 0) {
                         sessionToCreate.spot = spot[0]._doc;
                     } else {
+                        console.log(`Spot ${spotName} not found.`);
                         sessionToCreate.spot = spotName;
                     } 
                     callbackFn();
