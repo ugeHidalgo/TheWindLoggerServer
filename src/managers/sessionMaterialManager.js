@@ -24,7 +24,7 @@ module.exports.getSessionMaterials = function (userName, sessionId, callbackFn) 
                   }]);
 };
 
-module.exports.createSessionMaterials = function (dataToCreate, callbackFn) {
+module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
 
     var loadObjectFields = function(dataToCreate, callbackFn) {
         var sessionName = dataToCreate.session,

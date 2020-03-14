@@ -6,6 +6,7 @@
  */
 var url = require ('url'),
     rootUrl = '/api/sessions',
+    importUrl = rootUrl + '/import',
     errorMessage = 'Session controller returns an error (400).',
     sessionManager = require('../managers/sessionManager'),
     auth = require ('../auth/authMiddleware');
@@ -14,17 +15,17 @@ var url = require ('url'),
  * Public methods.
  */
 module.exports.init = function (app) {
-    app.post (rootUrl, auth.isUserAuthenticated, function (req, res, next) {
-        // By name: (POST)http:localhost:3000/api/sessions   Sessions in payload 
+    app.post (importUrl, auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/sessions/import   Sessions in payload 
         var sessionsToCreate =  req.body;
         
-        sessionManager.createSessions ( sessionsToCreate, function(error, data){
+        sessionManager.importSessions ( sessionsToCreate, function(error, data){
             if (error){
                 console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
-                console.log(`Session controller created ${data.length} sessions successfully.`);
+                console.log(`Session controller imported ${data.length} sessions successfully.`);
                 res.status(200).send(data);
             }
         });

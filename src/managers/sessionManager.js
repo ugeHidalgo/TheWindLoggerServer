@@ -22,7 +22,7 @@ module.exports.getActiveSessions = function (userName, callbackFn) {
     Session.find({userName: userName, active: true}, callbackFn).populate('sport').populate('spot');
 };
 
-module.exports.createSessions = function (sessionsToCreate, callbackFn) {
+module.exports.importSessions = function (sessionsToCreate, callbackFn) {
 
     var loadObjectFields = function(sessionToCreate, callbackFn) {
         var sportName = sessionToCreate.sport,

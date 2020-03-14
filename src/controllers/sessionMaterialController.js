@@ -6,6 +6,7 @@
  */
 var url = require ('url'),
     rootUrl = '/api/sessionmaterials',
+    importUrl = rootUrl + '/import',
     errorMessage = 'SessionMaterial controller returns an error (400).',
     sessionMaterialManager = require('../managers/sessionMaterialManager'),
     auth = require ('../auth/authMiddleware');
@@ -14,17 +15,17 @@ var url = require ('url'),
  * Public methods.
  */
 module.exports.init = function (app) {
-    app.post (rootUrl, auth.isUserAuthenticated, function (req, res, next) {
-        // By name: (POST)http:localhost:3000/api/sessionmaterials   Session materials in payload 
+    app.post (importUrl, auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/sessionmaterials/import   Session materials in payload 
         var dataToCreate =  req.body;
         
-        sessionMaterialManager.createSessionMaterials ( dataToCreate, function(error, data){
+        sessionMaterialManager.importSessionMaterials ( dataToCreate, function(error, data){
             if (error){
                 console.log(errorMessage);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
-                console.log(`SessionMaterial controller created ${data.length} session materials successfully.`);
+                console.log(`SessionMaterial controller imported ${data.length} session materials successfully.`);
                 res.status(200).send(data);
             }
         });

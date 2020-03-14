@@ -22,7 +22,7 @@ var moongoose = require ('mongoose'),
     });
 
     SesionMaterialSchema.virtual('materialTypeName').get(function(){
-        return this.material.materialType.name;
+        return (this.material.materialType) ? this.material.materialType.name : '';
     });
 
     SesionMaterialSchema.methods.toJSON = function () {
