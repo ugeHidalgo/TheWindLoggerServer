@@ -31,6 +31,22 @@ module.exports.init = function (app) {
         });
     });
 
+    app.post (rootUrl, auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/sessions   Session in payload 
+        var sessionToSave =  req.body;
+        
+        sessionManager.saveSession ( sessionToSave, function(error, data){
+            if (error){
+                console.log(errorMessage);
+                res.status(400).send(error);
+            } else {
+                res.set('Content-Type','application/json');
+                console.log(`Session controller save session ${data._id} successfully.`);
+                res.status(200).send(data);
+            }
+        });
+    });
+
     app.get (rootUrl, auth.isUserAuthenticated, function (req, res, next) {
         // By name: (GET)http:localhost:3000/api/sessions/?username=pepe&active=true 
         var queryString = url.parse(req.url, true).query,
