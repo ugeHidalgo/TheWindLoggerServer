@@ -47,8 +47,17 @@ module.exports.deleteSessionMaterials = function (dataToDelete, callbackFn) {
 };
 
 module.exports.saveSessionMaterials = function (dataToSave, callbackFn) {
-    console.log('SessionMaterialManager.saveSessionMaterials: Saved session materials');
-    callbackFn(null, dataToSave);
+    SessionMaterial.insertMany(dataToSave, (error, result) => {
+        if (error) {
+            console.log('SessionMaterialManager.saveSessionMaterials: Error while adding session materials.');
+            callbackFn(error, null);
+        }
+        if (result) { 
+            console.log('SessionMaterialManager.saveSessionMaterials: Saved session materials');
+            callbackFn(null, dataToSave);
+        } 
+    });
+    
 };
 
 module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
