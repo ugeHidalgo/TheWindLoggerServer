@@ -7,7 +7,7 @@
 var url = require ('url'),
     rootUrl = '/api/sessions',
     importUrl = rootUrl + '/import',
-    errorMessage = 'Session controller returns an error (400).',
+    errorMessage = 'Session controller returns an error (400) from: ',
     sessionManager = require('../managers/sessionManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -21,11 +21,11 @@ module.exports.init = function (app) {
         
         sessionManager.importSessions ( sessionsToCreate, function(error, data){
             if (error){
-                console.log(errorMessage);
+                console.log(errorMessage + 'sessionManager.importSessions');
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
-                console.log(`Session controller imported ${data.length} sessions successfully.`);
+                console.log(`Session controller: Imported ${data.length} sessions successfully.`);
                 res.status(200).send(data);
             }
         });
@@ -37,11 +37,11 @@ module.exports.init = function (app) {
         
         sessionManager.saveSession ( sessionToSave, function(error, data){
             if (error){
-                console.log(errorMessage);
+                console.log(errorMessage + 'sessionManager.saveSession');
                 res.status(400).send(error);
             } else {
+                console.log(`Session Controller: Saved session ${data._id} successfully.`);
                 res.set('Content-Type','application/json');
-                console.log(`Session controller save session ${data._id} successfully.`);
                 res.status(200).send(data);
             }
         });
@@ -73,7 +73,7 @@ function getUserSessions(userName, res) {
 
     sessionManager.getSessions (userName, function(error, data){
         if (error){
-            console.log(errorMessage);
+            console.log(errorMessage + 'sessionManager.getSessions');
             res.status(400).send(error);
         } else {
             message = `Sessions controller returns ${data.length} sessions for user "${userName}" successfully.`;
@@ -87,7 +87,7 @@ function getActiveUserSessions(userName, res) {
 
     sessionManager.getActiveSessions (userName, function(error, data){
         if (error){
-            console.log(errorMessage);
+            console.log(errorMessage + 'sessionManager.getActiveSessions');
             res.status(400).send(error);
         } else {
             message = `Sessions controller returns ${data.length} active sessions for user "${userName}" successfully.`;

@@ -24,6 +24,33 @@ module.exports.getSessionMaterials = function (userName, sessionId, callbackFn) 
                   }]);
 };
 
+module.exports.deleteSessionMaterials = function (dataToDelete, callbackFn) {
+    var filter = {
+        session : {_id: dataToDelete._id},
+        userName: dataToDelete.userName
+    };
+
+    SessionMaterial.deleteMany(filter, (error, result) => {
+        if (error) {
+                console.log('SessionMaterialManager.deleteSessionMaterials: Error while deleting session materials.');
+                callbackFn(error, null);
+        }
+        if (result) { 
+            if (result.n !== result.deletedCount) {
+                var error = new Error('SessionMaterialManager.deleteSessionMaterials: Could not delete all the materials session.');
+                callbackFn(error, null);
+            }
+            console.log(`SessionMaterialManager.deleteSessionMaterials: Deleted ${result.deletedCount} session materials.`);
+            callbackFn(null, result.deletedCount);
+        } 
+    });
+};
+
+module.exports.saveSessionMaterials = function (dataToSave, callbackFn) {
+    console.log('SessionMaterialManager.saveSessionMaterials: Saved session materials');
+    callbackFn(null, dataToSave);
+};
+
 module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
 
     var loadObjectFields = function(dataToCreate, callbackFn) {
@@ -38,7 +65,7 @@ module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
                         dataToCreate.session = session[0]._doc;
                     } else {
                         dataToCreate.session = sessionName;
-                        console.log(`Session ${sessionName} not found.`);
+                        console.log(`SessionMaterialManager.importSessionMaterials: Session ${sessionName} not found.`);
                     } 
                     callbackFn();
                 });
@@ -49,7 +76,7 @@ module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
                         dataToCreate.material = material[0]._doc;
                     } else {
                         dataToCreate.material = materialName;
-                        console.log(`Material ${materialName} not found.`);
+                        console.log(`SessionMaterialManager.importSessionMaterials: Material ${materialName} not found.`);
                     } 
                     callbackFn();
                 });
@@ -63,7 +90,7 @@ module.exports.importSessionMaterials = function (dataToCreate, callbackFn) {
     };
 
     async.each(dataToCreate, loadObjectFields, function() {
-        console.log ('Added session and material data for ' + dataToCreate.length + ' session materials.');
+        console.log ('SessionMaterialManager.importSessionMaterials: Added session and material data for ' + dataToCreate.length + ' session materials.');
         SessionMaterial.insertMany(dataToCreate, callbackFn);
     });
 };
