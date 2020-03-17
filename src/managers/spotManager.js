@@ -13,12 +13,16 @@ var mongoose = require ('mongoose'),
  */
 module.exports.getSpots = function (userName, callbackFn) {
 
-    Spot.find({userName: userName}, callbackFn);
+    Spot
+        .find({userName: userName}, callbackFn)
+        .sort({name: 'asc'});
 };
 
 module.exports.getActiveSpots = function (userName, callbackFn) {
 
-    Spot.find({userName: userName, active: true}, callbackFn);
+    Spot
+        .find({userName: userName, active: true}, callbackFn)
+        .sort({name: 'asc'});
 };
 
 module.exports.createSpots = function (spotsToCreate, callbackFn) {

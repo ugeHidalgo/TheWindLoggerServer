@@ -13,12 +13,18 @@ var async = require ('async'),
  */
 module.exports.getMaterials = function (userName, callbackFn) {
 
-    Material.find({userName: userName}, callbackFn).populate('materialType');
+    Material
+        .find({userName: userName}, callbackFn)
+        .sort({name: 'asc'})
+        .populate('materialType');
 };
 
 module.exports.getActiveMaterials = function (userName, callbackFn) {
 
-    Material.find({userName: userName, active: true}, callbackFn).populate('materialType');
+    Material
+        .find({userName: userName, active: true}, callbackFn)
+        .sort({name: 'asc'})
+        .populate('materialType');
 };
 
 module.exports.createMaterials = function (materialsToCreate, callbackFn) {

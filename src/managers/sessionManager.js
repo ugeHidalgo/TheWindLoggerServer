@@ -15,11 +15,17 @@ var async = require ('async'),
  * Public methods.
  */
 module.exports.getSessions = function (userName, callbackFn) {
-    Session.find({userName: userName}, callbackFn).populate('sport').populate('spot');
+    Session
+        .find({userName: userName}, callbackFn)
+        .sort({sessionDate: 'desc'})
+        .populate('sport').populate('spot');
 };
 
 module.exports.getActiveSessions = function (userName, callbackFn) {
-    Session.find({userName: userName, active: true}, callbackFn).populate('sport').populate('spot');
+    Session
+        .find({userName: userName, active: true}, callbackFn)
+        .sort({sessionDate: 'desc'})
+        .populate('sport').populate('spot');
 };
 
 module.exports.saveSession = function (sessionToSave, callbackFn) {

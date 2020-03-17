@@ -15,12 +15,18 @@ var mongoose = require ('mongoose'),
  */
 module.exports.getMaterialTypes = function (userName, callbackFn) {
 
-    MaterialType.find({userName: userName}, callbackFn).populate('sport');
+    MaterialType
+        .find({userName: userName}, callbackFn)
+        .sort({name: 'asc'})
+        .populate('sport');
 };
 
 module.exports.getActiveMaterialTypes = function (userName, callbackFn) {
 
-    MaterialType.find({userName: userName, active: true}, callbackFn).populate('sport');;
+    MaterialType
+        .find({userName: userName, active: true}, callbackFn)
+        .sort({name: 'asc'})
+        .populate('sport');;
 };
 
 module.exports.createMaterialTypes = function (materialTypesToCreate, callbackFn) {

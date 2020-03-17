@@ -13,12 +13,16 @@ var mongoose = require ('mongoose'),
  */
 module.exports.getSportTypes = function (userName, callbackFn) {
 
-    SportType.find({userName: userName}, callbackFn);
+    SportType
+        .find({userName: userName}, callbackFn)
+        .sort({name: 'asc'});
 };
 
 module.exports.getActiveSportTypes = function (userName, callbackFn) {
 
-    SportType.find({userName: userName, active: true}, callbackFn);
+    SportType
+        .find({userName: userName, active: true}, callbackFn)
+        .sort({name: 'asc'});
 };
 
 module.exports.createSportTypes = function (sportTypesToCreate, callbackFn) {
