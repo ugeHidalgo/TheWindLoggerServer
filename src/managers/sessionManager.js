@@ -28,6 +28,17 @@ module.exports.getActiveSessions = function (userName, callbackFn) {
         .populate('sport').populate('spot');
 };
 
+module.exports.getFilteredSessions = function (sessionFilterData, callbackFn) {
+    Session
+    .find({
+            userName: sessionFilterData.userName, 
+            active: true,
+            date: {'$gte': sessionFilterData.dateFrom, '$lte': sessionFilterData.dateTo }
+        }, callbackFn)
+    .sort({sessionDate: 'desc'})
+    .populate('sport').populate('spot');
+};
+
 module.exports.saveSession = function (sessionToSave, callbackFn) {
     console.log('SessionManager.saveSession: Session saving process started.');
     async.series([

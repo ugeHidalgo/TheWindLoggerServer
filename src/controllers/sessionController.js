@@ -6,6 +6,7 @@
  */
 var url = require ('url'),
     rootUrl = '/api/sessions',
+    filteredUrl = rootUrl + '-filtered',
     importUrl = rootUrl + '/import',
     errorMessage = 'Session controller returns an error (400) from: ',
     sessionManager = require('../managers/sessionManager'),
@@ -27,6 +28,22 @@ module.exports.init = function (app) {
                 res.set('Content-Type','application/json');
                 console.log(`Session controller: Imported ${data.length} sessions successfully.`);
                 res.status(200).send(data);
+            }
+        });
+    });
+
+    app.post (filteredUrl, auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/sessions-filtered   Session filter data in payload 
+        var message,
+            sessionsFilterData =  req.body;
+        
+        sessionManager.getFilteredSessions (sessionsFilterData, function(error, data){
+            if (error){
+                console.log(errorMessage + 'sessionManager.getFilteredSessions');
+                res.status(400).send(error);
+            } else {
+                message = `Sessions controller returns ${data.length} filtered sessions for user "${sessionsFilterData.userName}" successfully.`;
+                returnData(data, res, message);
             }
         });
     });
