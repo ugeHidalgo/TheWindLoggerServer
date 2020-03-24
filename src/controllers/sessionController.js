@@ -11,6 +11,7 @@ var url = require ('url'),
     errorMessage = 'Session controller returns an error (400) from: ',
     sessionManager = require('../managers/sessionManager'),
     auth = require ('../auth/authMiddleware');
+    
 
 /**
  * Public methods.

@@ -29,14 +29,16 @@ module.exports.getActiveSessions = function (userName, callbackFn) {
 };
 
 module.exports.getFilteredSessions = function (sessionFilterData, callbackFn) {
+    var filter = {
+        userName: sessionFilterData.userName, 
+        active: true,
+        sessionDate: {'$gte': sessionFilterData.dateFrom, '$lte': sessionFilterData.dateTo }
+    };
+
     Session
-    .find({
-            userName: sessionFilterData.userName, 
-            active: true,
-            date: {'$gte': sessionFilterData.dateFrom, '$lte': sessionFilterData.dateTo }
-        }, callbackFn)
-    .sort({sessionDate: 'desc'})
-    .populate('sport').populate('spot');
+        .find(filter, callbackFn)
+        .sort({sessionDate: 'desc'})
+        .populate('sport').populate('spot');
 };
 
 module.exports.saveSession = function (sessionToSave, callbackFn) {
