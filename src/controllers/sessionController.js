@@ -8,8 +8,10 @@ var url = require ('url'),
     rootUrl = '/api/sessions',
     filteredUrl = rootUrl + '-filtered',
     importUrl = rootUrl + '/import',
+    infoUrl = rootUrl + '-info',
     errorMessage = 'Session controller returns an error (400) from: ',
     sessionManager = require('../managers/sessionManager'),
+    sessionInfoManager = require('../managers/sessionInfoManager'),
     auth = require ('../auth/authMiddleware');
     
 
@@ -44,6 +46,22 @@ module.exports.init = function (app) {
                 res.status(400).send(error);
             } else {
                 message = `Sessions controller returns ${data.length} filtered sessions for user "${sessionsFilterData.userName}" successfully.`;
+                returnData(data, res, message);
+            }
+        });
+    });
+
+    app.post (infoUrl, auth.isUserAuthenticated, function (req, res, next) {
+        // By name: (POST)http:localhost:3000/api/sessions-info   Session filter data in payload 
+        var message,
+            sessionsFilterData =  req.body;
+        
+        sessionInfoManager.getSessionsInfo (sessionsFilterData, function(error, data){
+            if (error){
+                console.log(errorMessage + 'sessionManager.getSessionsInfo');
+                res.status(400).send(error);
+            } else {
+                message = `Sessions controller returns sessions info for user "${sessionsFilterData.userName}" successfully.`;
                 returnData(data, res, message);
             }
         });
