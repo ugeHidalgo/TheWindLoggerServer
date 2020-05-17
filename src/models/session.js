@@ -31,7 +31,7 @@ var moongoose = require ('mongoose'),
     });
 
     SesionSchema.virtual('spotName').get(function(){
-        return this.spot.name;
+        return this.spot ? this.spot.name :  undefined;
     });
 
     SesionSchema.methods.toJSON = function () {
