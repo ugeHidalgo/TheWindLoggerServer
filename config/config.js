@@ -19,9 +19,11 @@ module.exports = {
     db : {
         //uri : 'mongodb://localhost:27017/TheWindLoggerServer', //DB on local computer
         //uri : 'mongodb://192.168.1.25:27017/TheWindLoggerServer', //DB on local computer
-        //uri: 'mongodb://ugeHidalgo:gunnar12A@ds149501.mlab.com:49501/thewindloggerdb',
-        uri: 'mongodb://windloggeruser:gun12A@ds135068.mlab.com:35068/thewindloggerdb', //DB on mLab
-        options: {},
+        uri: "mongodb+srv://windloggeruser:gun12A@thewindloggerdb.mvrij.mongodb.net/thewindloggerdb?retryWrites=true&w=majority", //DB on MongoDB Atlas
+        options: { 
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        },
         // Enable mongoose debug mode
         debug: process.env.MONGODB_DEBUG || false
     },

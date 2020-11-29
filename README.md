@@ -63,7 +63,7 @@ ___
     Copiar url y pegar en un browser.
  
 
--7 Remote Data base can also be used hosted in mLab (Need to change local db config to remote. See dbConfig.js to change it)
+-7 Remote Data base can also be used hosted in Atlas MongoDB (Need to change local db config to remote. See dbConfig.js to change it)
 
 -8 Hosted on Heroku via Git(Automatic deploys set on Heroku when changing git repository): https://thewindloggerserver.herokuapp.com
 
