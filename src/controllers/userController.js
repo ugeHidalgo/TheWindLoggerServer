@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'User controller returns an error (400)',
     userManager = require('../managers/userManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -19,7 +20,8 @@ module.exports.init = function (app) {
 
         userManager.getUserByUserName ( userName, function(error, users){
             if (error){
-                console.log('User controller returns an error (400)');
+                console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -46,7 +48,8 @@ module.exports.init = function (app) {
         if (username) {
             userManager.getUserByExactUserName ( username, function(error, users){
                 if (error){
-                    console.log('User controller returns an error (400)');
+                    console.log(errorMessage);
+                    console.log(error.message);
                     res.status(400).send(error);
                 } else {
                     res.set('Content-Type','application/json');
@@ -67,7 +70,8 @@ module.exports.init = function (app) {
         if (id) {
             userManager.getUserById ( id, function(error, users){
                 if (error){
-                    console.log('Users controller returns an error (400)');
+                    console.log(errorMessage);
+                    console.log(error.message);
                     res.status(400).send(error);
                 } else {
                     res.set('Content-Type','application/json');
@@ -95,7 +99,8 @@ module.exports.init = function (app) {
         if (username) {
             userManager.updateUser ( userName, function(error, users){
                 if (error){
-                    console.log('User controller returns an error (400)');
+                    console.log(errorMessage);
+                    console.log(error.message);
                     res.status(400).send(error);
                 } else {
                     res.set('Content-Type','application/json');

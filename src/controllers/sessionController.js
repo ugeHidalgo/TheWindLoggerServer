@@ -26,6 +26,7 @@ module.exports.init = function (app) {
         sessionManager.importSessions ( sessionsToCreate, function(error, data){
             if (error){
                 console.log(errorMessage + 'sessionManager.importSessions');
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -43,6 +44,7 @@ module.exports.init = function (app) {
         sessionManager.getFilteredSessions (sessionsFilterData, function(error, data){
             if (error){
                 console.log(errorMessage + 'sessionManager.getFilteredSessions');
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 message = `Sessions controller returns ${data.length} filtered sessions for user "${sessionsFilterData.userName}" successfully.`;
@@ -59,6 +61,7 @@ module.exports.init = function (app) {
         sessionInfoManager.getSessionsInfo (sessionsFilterData, function(error, data){
             if (error){
                 console.log(errorMessage + 'sessionManager.getSessionsInfo');
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 message = `Sessions controller returns sessions info for user "${sessionsFilterData.userName}" successfully.`;
@@ -74,6 +77,7 @@ module.exports.init = function (app) {
         sessionManager.saveSession ( sessionToSave, function(error, data){
             if (error){
                 console.log(errorMessage + 'sessionManager.saveSession');
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 console.log(`Session Controller: Saved session ${data._id} successfully.`);
@@ -110,6 +114,7 @@ function getUserSessions(userName, res) {
     sessionManager.getSessions (userName, function(error, data){
         if (error){
             console.log(errorMessage + 'sessionManager.getSessions');
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Sessions controller returns ${data.length} sessions for user "${userName}" successfully.`;
@@ -124,6 +129,7 @@ function getActiveUserSessions(userName, res) {
     sessionManager.getActiveSessions (userName, function(error, data){
         if (error){
             console.log(errorMessage + 'sessionManager.getActiveSessions');
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Sessions controller returns ${data.length} active sessions for user "${userName}" successfully.`;

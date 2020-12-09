@@ -20,6 +20,7 @@ module.exports.init = function (app) {
         materialManager.createMaterials ( materialsToCreate, function(error, materials){
             if (error){
                 console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -56,6 +57,7 @@ function getUserMaterials(userName, res) {
     materialManager.getMaterials (userName, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Material controller returns ${data.length} materials for user "${userName}" successfully.`;
@@ -69,7 +71,8 @@ function getActiveUserMaterials(userName, res) {
 
     materialManager.getActiveMaterials (userName, function(error, data){
         if (error){
-            console.log('Material controller returns an error (400)');
+            console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Material controller returns ${data.length} active materials for user "${userName}" successfully.`;

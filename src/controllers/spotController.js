@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'Spots controller returns an error (400)',
     spotManager = require('../managers/spotManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -18,7 +19,8 @@ module.exports.init = function (app) {
         
         spotManager.createSpots ( spotsToCreate, function(error, spots){
             if (error){
-                console.log('Spot controller returns an error (400)');
+                console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -53,7 +55,8 @@ function getUserSpots(userName, res) {
 
     spotManager.getSpots (userName, function(error, data){
         if (error){
-            console.log('Spot controller returns an error (400).');
+            console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             console.log(`Spot controller returns ${data.length} Spots for user "${userName}" successfully.`);
@@ -67,7 +70,8 @@ function getActiveUserSpots(userName, res) {
 
     spotManager.getActiveSpots (userName, function(error, data){
         if (error){
-            console.log('Spots controller returns an error (400)');
+            console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             console.log(`Spots controller returns ${data.length} active Spots for user "${userName}" successfully.`);

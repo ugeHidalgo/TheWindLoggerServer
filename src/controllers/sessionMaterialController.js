@@ -22,6 +22,7 @@ module.exports.init = function (app) {
         sessionMaterialManager.importSessionMaterials ( dataToCreate, function(error, data){
             if (error){
                 console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -54,6 +55,7 @@ function getUserSessionMaterials(userName, id, res) {
     sessionMaterialManager.getSessionMaterials (userName, id, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `SessionMaterial controller returns ${data.length} session materials for session "${id}" successfully.`;

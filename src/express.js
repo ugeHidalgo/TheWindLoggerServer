@@ -38,7 +38,7 @@ module.exports.initMiddleware = function (app) {
     var corsOptions = {
         origin: function(origin, callback){
                 if (config.cors.originsWhitelist.indexOf(origin) !== -1 || !origin) {
-                    res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
+                    //res.header("Access-Control-Allow-Origin", origin); // restrict it to the required domain
                     callback(null, true);
                 } else {
                     callback(new Error('Not allowed by CORS'));
@@ -49,12 +49,12 @@ module.exports.initMiddleware = function (app) {
     }
     
     app.options('*', cors());
-    /*app.all('/*', function (req, res, next) {
+    app.all('/*', function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         next();
-    }); */
+    });
     app.use(cors(corsOptions));
 
     // Add the cookie parser and flash middleware

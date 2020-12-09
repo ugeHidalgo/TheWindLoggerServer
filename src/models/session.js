@@ -27,7 +27,7 @@ var moongoose = require ('mongoose'),
     });
 
     SesionSchema.virtual('sportName').get(function(){
-        return this.sport.name;
+        return this.sport ? this.sport.name : undefined;
     });
 
     SesionSchema.virtual('spotName').get(function(){

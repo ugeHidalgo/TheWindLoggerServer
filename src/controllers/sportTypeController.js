@@ -5,6 +5,7 @@
  * Module dependencies.
  */
 var url = require ('url'),
+    errorMessage = 'Sport types controller returns an error (400)',
     sportTypeManager = require('../managers/sportTypeManager'),
     auth = require ('../auth/authMiddleware');
 
@@ -18,7 +19,8 @@ module.exports.init = function (app) {
         
         sportTypeManager.createSportTypes ( sportTypesToCreate, function(error, sportTypes){
             if (error){
-                console.log('SportTypes controller returns an error (400)');
+                console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -53,7 +55,8 @@ function getUserSportTypes(userName, res) {
 
     sportTypeManager.getSportTypes (userName, function(error, data){
         if (error){
-            console.log('SportType controller returns an error (400).');
+            console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             console.log(`SportType controller returns ${data.length} sport types for user "${userName}" successfully.`);
@@ -67,7 +70,8 @@ function getActiveUserSportTypes(userName, res) {
 
     sportManager.getActiveSportTypes (userName, function(error, data){
         if (error){
-            console.log('SportType controller returns an error (400)');
+            console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             console.log(`SportType controller returns ${data.length} active sport types for user "${userName}" successfully.`);

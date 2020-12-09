@@ -20,6 +20,7 @@ module.exports.init = function (app) {
         sportManager.createSports ( sportsToCreate, function(error, sports){
             if (error){
                 console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -56,6 +57,7 @@ function getUserSports(userName, res) {
     sportManager.getSports (userName, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Sports controller returns ${data.length} sports for user "${userName}" successfully.`;
@@ -70,6 +72,7 @@ function getActiveUserSports(userName, res) {
     sportManager.getActiveSports (userName, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `Sports controller returns ${data.length} active sports for user "${userName}" successfully.`;

@@ -117,6 +117,18 @@ module.exports.importSessions = function (sessionsToCreate, callbackFn) {
  * Private methods.
  */
 function saveSessionHeader(sessionToSave, callbackFn) {
+    if (sessionToSave._id === '-1') {
+        createSessionHeader(sessionToSave, callbackFn);
+    } else {
+        updateSessionHeader(sessionToSave, callbackFn);
+    }
+}
+
+function createSessionHeader(sessionToSave, callbackFn) {    
+    Session.create(sessionToSave,callbackFn);
+};
+
+function updateSessionHeader(sessionToSave, callbackFn) {
     var filter = {
             _id: sessionToSave._id,
             userName: sessionToSave.userName 

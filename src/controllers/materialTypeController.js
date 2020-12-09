@@ -20,6 +20,7 @@ module.exports.init = function (app) {
         materialTypeManager.createMaterialTypes ( materialTypesToCreate, function(error, materialTypes){
             if (error){
                 console.log(errorMessage);
+                console.log(error.message);
                 res.status(400).send(error);
             } else {
                 res.set('Content-Type','application/json');
@@ -56,6 +57,7 @@ function getUserMaterialTypes(userName, res) {
     materialTypeManager.getMaterialTypes (userName, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `MaterialTypes controller returns ${data.length} MaterialTypes for user "${userName}" successfully.`;
@@ -70,6 +72,7 @@ function getActiveUserMaterialTypes(userName, res) {
     materialTypeManager.getActiveMaterialTypes (userName, function(error, data){
         if (error){
             console.log(errorMessage);
+            console.log(error.message);
             res.status(400).send(error);
         } else {
             message = `MaterialTypes controller returns ${data.length} active MaterialTypes for user "${userName}" successfully.`;
