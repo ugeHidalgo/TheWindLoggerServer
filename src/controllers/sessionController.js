@@ -80,7 +80,7 @@ module.exports.init = function (app) {
                 console.log(error.message);
                 res.status(400).send(error);
             } else {
-                console.log(`Session Controller: Saved session ${data._id} successfully.`);
+                console.log(`Session Controller: Saved session ${data.name} successfully.`);
                 res.set('Content-Type','application/json');
                 res.status(200).send(data);
             }

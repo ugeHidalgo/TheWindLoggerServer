@@ -41,34 +41,6 @@ module.exports.getFilteredSessions = function (sessionFilterData, callbackFn) {
         .populate('sport').populate('spot');
 };
 
-module.exports.saveSession = function (sessionToSave, callbackFn) {
-    console.log('SessionManager.saveSession: Session saving process started.');
-    async.series([
-        function(callbackFn){
-            saveSessionHeader(sessionToSave, callbackFn);
-        },
-        function(callbackFn){
-            SessionMaterialManager.deleteSessionMaterials(sessionToSave, callbackFn);
-        },
-        function(callbackFn){
-            SessionMaterialManager.saveSessionMaterials(sessionToSave.materialsUsed, callbackFn);
-        }
-    ],
-    // final callback
-    function(err, results){
-        if (err) {
-            console.log('sessionManager.saveSession: Could not complete save session operation.');
-            callbackFn(error, null);
-        } else {
-            var session = new Session(results[0]);
-            session.usedMaterials = results[2];
-
-            console.log ('SessionManager.saveSession: Session saving process finished.');
-            callbackFn(null, session);
-        }
-    });
-};
-
 module.exports.importSessions = function (sessionsToCreate, callbackFn) {
 
     var loadObjectFields = function(sessionToCreate, callbackFn) {
@@ -113,20 +85,58 @@ module.exports.importSessions = function (sessionsToCreate, callbackFn) {
     });
 };
 
+module.exports.saveSession = function (sessionToSave, callbackFn) {
+    if (!sessionToSave._id) {
+        createSessionHeader(sessionToSave, callbackFn);
+    } else {
+        updateSession(sessionToSave, callbackFn);
+    }
+};
+
 /**
  * Private methods.
  */
-function saveSessionHeader(sessionToSave, callbackFn) {
-    if (sessionToSave._id === '-1') {
-        createSessionHeader(sessionToSave, callbackFn);
-    } else {
-        updateSessionHeader(sessionToSave, callbackFn);
-    }
-}
-
-function createSessionHeader(sessionToSave, callbackFn) {    
-    Session.create(sessionToSave,callbackFn);
+function createSessionHeader(sessionToSave, callbackFn) {
+    //Session.insertMany(sessionToSave, callbackFn);
+    var newSession = new Session(sessionToSave);
+    newSession.save(function (error) {
+        if (error) {
+            callbackFn(error, null);
+        } else {
+            console.log ('New session saved with name ' + newSession.name + ' and id: ' + newSession._id);
+            callbackFn(null, newSession);
+        }
+    });
 };
+
+function updateSession(sessionToSave, callbackFn) {
+    console.log('SessionManager.saveSession: Session saving process started.');
+    async.series([
+        function(callbackFn){
+            updateSessionHeader(sessionToSave, callbackFn);
+        },
+        function(callbackFn){
+            SessionMaterialManager.deleteSessionMaterials(sessionToSave, callbackFn);
+        },
+        function(callbackFn){
+            SessionMaterialManager.saveSessionMaterials(sessionToSave.materialsUsed, callbackFn);
+        }
+    ],
+    // final callback
+    function(error, results){
+        if (error) {
+            console.log('sessionManager.saveSession: Could not complete save session operation.');
+            console.log(error.message);
+            callbackFn(error, null);
+        } else {
+            var session = new Session(results[0]);
+            session.usedMaterials = results[2];
+
+            console.log ('SessionManager.saveSession: Session saving process finished.');
+            callbackFn(null, session);
+        }
+    });
+}
 
 function updateSessionHeader(sessionToSave, callbackFn) {
     var filter = {
