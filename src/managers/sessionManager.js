@@ -97,7 +97,6 @@ module.exports.saveSession = function (sessionToSave, callbackFn) {
  * Private methods.
  */
 function createSessionHeader(sessionToSave, callbackFn) {
-    //Session.insertMany(sessionToSave, callbackFn);
     var newSession = new Session(sessionToSave);
     newSession.save(function (error) {
         if (error) {
